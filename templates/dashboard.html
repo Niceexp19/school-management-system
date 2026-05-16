@@ -1,1 +1,123 @@
+{% extends 'base.html' %}
 
+{% block content %}
+
+<div style="margin-bottom: 1.5rem;">
+    <h1 style="font-size: 1.5rem; font-weight: 800; color: #0f172a;">🏠 Dashboard</h1>
+    <p style="color: #64748b; margin-top: 0.3rem;">Welcome back, {{ session.full_name }}! 👋</p>
+</div>
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+    <div class="stat-card" style="background: linear-gradient(135deg, #0f2b3d, #1e4a76);">
+        <div class="stat-label">Total Students</div>
+        <div class="stat-value">{{ total_students }}</div>
+        <div class="stat-icon">👨‍🎓</div>
+    </div>
+    <div class="stat-card" style="background: linear-gradient(135deg, #166534, #16a34a);">
+        <div class="stat-label">Total Teachers</div>
+        <div class="stat-value">{{ total_teachers }}</div>
+        <div class="stat-icon">👨‍🏫</div>
+    </div>
+    <div class="stat-card" style="background: linear-gradient(135deg, #854d0e, #ca8a04);">
+        <div class="stat-label">Announcements</div>
+        <div class="stat-value">{{ total_announcements }}</div>
+        <div class="stat-icon">📢</div>
+    </div>
+    <div class="stat-card" style="background: linear-gradient(135deg, #991b1b, #dc2626);">
+        <div class="stat-label">School Year</div>
+        <div class="stat-value" style="font-size: 1.2rem;">2025/26</div>
+        <div class="stat-icon">📅</div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="card">
+    <div class="card-title">⚡ Quick Actions</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <a href="/students" class="btn btn-primary">👨‍🎓 Manage Students</a>
+        <a href="/grades" class="btn btn-primary">📊 Record Grades</a>
+        <a href="/attendance" class="btn btn-primary">📋 Mark Attendance</a>
+        <a href="/fees" class="btn btn-primary">💰 Manage Fees</a>
+        <a href="/announcements" class="btn btn-primary">📢 Post Announcement</a>
+    </div>
+</div>
+
+<!-- Two Column Layout -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; flex-wrap: wrap;">
+
+    <!-- Recent Students -->
+    <div class="card">
+        <div class="card-title">👨‍🎓 Recent Students</div>
+        {% if recent_students %}
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+            {% for student in recent_students %}
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: #f8fafc; border-radius: 10px;">
+                <div>
+                    <div style="font-weight: 600; color: #0f172a; font-size: 0.9rem;">{{ student['full_name'] }}</div>
+                    <div style="font-size: 0.8rem; color: #64748b;">{{ student['class'] }}</div>
+                </div>
+                <a href="/report/{{ student['id'] }}" class="btn btn-sm btn-primary">View →</a>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="margin-top: 1rem;">
+            <a href="/students" style="color: #2563eb; font-size: 0.85rem; font-weight: 600; text-decoration: none;">View all students →</a>
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 2rem; color: #94a3b8;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">👨‍🎓</div>
+            <p>No students yet!</p>
+            <a href="/students" class="btn btn-primary" style="margin-top: 1rem; font-size: 0.85rem;">Add First Student</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Recent Announcements -->
+    <div class="card">
+        <div class="card-title">📢 Recent Announcements</div>
+        {% if announcements %}
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+            {% for ann in announcements %}
+            <div style="padding: 0.8rem; background: #f8fafc; border-radius: 10px; border-left: 3px solid #2563eb;">
+                <div style="font-weight: 600; color: #0f172a; font-size: 0.9rem;">{{ ann['title'] }}</div>
+                <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.2rem;">{{ ann['date'] }} — {{ ann['author'] }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="margin-top: 1rem;">
+            <a href="/announcements" style="color: #2563eb; font-size: 0.85rem; font-weight: 600; text-decoration: none;">View all announcements →</a>
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 2rem; color: #94a3b8;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">📢</div>
+            <p>No announcements yet!</p>
+            <a href="/announcements" class="btn btn-primary" style="margin-top: 1rem; font-size: 0.85rem;">Post First Announcement</a>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+
+<!-- Role Info -->
+<div class="card" style="background: linear-gradient(135deg, #0f2b3d, #1e4a76); color: white;">
+    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <div style="font-size: 3rem;">
+            {% if session.role == 'admin' %}👑
+            {% elif session.role == 'teacher' %}👨‍🏫
+            {% else %}👤{% endif %}
+        </div>
+        <div>
+            <div style="font-weight: 700; font-size: 1.1rem;">{{ session.full_name }}</div>
+            <div style="color: #94a3b8; font-size: 0.85rem; margin-top: 0.2rem;">
+                {% if session.role == 'admin' %}
+                Administrator — Full access to all features
+                {% elif session.role == 'teacher' %}
+                Teacher — Manage grades and attendance
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
