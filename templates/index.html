@@ -1,1 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduManage - School Management System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, sans-serif; background: #f1f5f9; }
 
+        .navbar {
+            background: linear-gradient(135deg, #0f2b3d, #1e4a76);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-brand {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
+        .navbar-brand span { color: #60a5fa; }
+        .btn-login {
+            background: white;
+            color: #0f2b3d;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f2b3d 0%, #1e4a76 100%);
+            padding: 80px 2rem;
+            text-align: center;
+            color: white;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .hero h1 span { color: #60a5fa; }
+        .hero p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-hero-primary {
+            background: white;
+            color: #0f2b3d;
+            padding: 12px 30px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .btn-hero-primary:hover { transform: translateY(-2px); }
+        .btn-hero-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .features {
+            padding: 60px 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .features h2 {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+        .features p {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 3rem;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+            transition: 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.08);
+        }
+        .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+        .feature-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, #0f2b3d, #1e4a76);
+            padding: 60px 2rem;
+            text-align: center;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .stat h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+        }
+        .stat p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .demo-section {
+            padding: 60px 2rem;
+            text-align: center;
+            background: white;
+        }
+        .demo-section h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+        .demo-section p {
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+        .demo-credentials {
+            display: inline-grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            text-align: left;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .credential-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.2rem;
+            border: 1px solid #e2e8f0;
+        }
+        .credential-card h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.8rem;
+        }
+        .credential-item {
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 0.3rem;
+        }
+        .credential-item span {
+            font-weight: 700;
+            color: #0f172a;
+            font-family: monospace;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #0f2b3d, #1e4a76);
+            padding: 60px 2rem;
+            text-align: center;
+            color: white;
+        }
+        .cta-section h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .cta-section p {
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+            background: #0f172a;
+            color: #64748b;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.85rem;
+        }
+        footer span { color: #60a5fa; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .demo-credentials { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="navbar-brand">🏫 Edu<span>Manage</span></a>
+    <a href="/login" class="btn-login">Login →</a>
+</nav>
+
+<section class="hero">
+    <div class="hero-badge">🏫 Complete School Management Solution</div>
+    <h1>Manage Your School<br><span>Smarter & Faster</span></h1>
+    <p>A complete school management system for Nigerian schools. Manage students, grades, attendance, fees and more!</p>
+    <div class="hero-btns">
+        <a href="/login" class="btn-hero-primary">🚀 Get Started Free</a>
+        <a href="#features" class="btn-hero-outline">Learn More ↓</a>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <h2>Everything Your School Needs 🏫</h2>
+    <p>One platform to manage your entire school efficiently!</p>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">👨‍🎓</div>
+            <h3>Student Management</h3>
+            <p>Register and manage all students with their personal details, class assignments and parent information.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Grade Management</h3>
+            <p>Record and track student grades across all subjects with automatic grade calculations.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <h3>Attendance Tracking</h3>
+            <p>Mark and monitor daily attendance for all students across different classes easily.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <h3>Fee Management</h3>
+            <p>Track school fees, payment status and generate financial reports for each term.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📢</div>
+            <h3>Announcements</h3>
+            <p>Post and manage school announcements for teachers and staff easily.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📄</div>
+            <h3>Student Reports</h3>
+            <p>Generate comprehensive student report cards showing grades, attendance and fee status.</p>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="stats-grid">
+        <div class="stat">
+            <h3>100%</h3>
+            <p>Mobile Friendly</p>
+        </div>
+        <div class="stat">
+            <h3>6+</h3>
+            <p>Core Features</p>
+        </div>
+        <div class="stat">
+            <h3>24/7</h3>
+            <p>Online Access</p>
+        </div>
+        <div class="stat">
+            <h3>🇳🇬</h3>
+            <p>Built for Nigeria</p>
+        </div>
+    </div>
+</section>
+
+<section class="demo-section">
+    <h2>Try The Demo 🎯</h2>
+    <p>Login with these credentials to explore the system!</p>
+    <div class="demo-credentials">
+        <div class="credential-card">
+            <h4>👑 Admin Account</h4>
+            <div class="credential-item">Username: <span>admin</span></div>
+            <div class="credential-item">Password: <span>admin123</span></div>
+            <div class="credential-item" style="margin-top: 0.5rem; color: #16a34a; font-size: 0.8rem;">Full access to all features</div>
+        </div>
+        <div class="credential-card">
+            <h4>👨‍🏫 Teacher Account</h4>
+            <div class="credential-item">Username: <span>teacher1</span></div>
+            <div class="credential-item">Password: <span>teacher123</span></div>
+            <div class="credential-item" style="margin-top: 0.5rem; color: #2563eb; font-size: 0.8rem;">Manage grades & attendance</div>
+        </div>
+    </div>
+    <a href="/login" class="btn-hero-primary" style="background: linear-gradient(135deg, #0f2b3d, #1e4a76); color: white; padding: 14px 40px; font-size: 1rem;">
+        Try Demo Now →
+    </a>
+</section>
+
+<section class="cta-section">
+    <h2>Want This For Your School? 🏫</h2>
+    <p>I can customize this system for your school with your branding, subjects and requirements!</p>
+    <a href="https://wa.me/2347061465558?text=Hi! I want a school management system for my school"
+       class="btn-hero-primary" style="font-size: 1rem; padding: 14px 40px;">
+        💬 WhatsApp Me Now
+    </a>
+</section>
+
+<footer>
+    <p>© 2026 <span>EduManage</span> — Built by <span>Jairus</span> |
+    <a href="https://jairusnice.pythonanywhere.com" style="color: #60a5fa;">Portfolio</a></p>
+</footer>
+
+</body>
+</html>
