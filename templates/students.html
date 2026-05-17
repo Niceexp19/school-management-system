@@ -111,7 +111,7 @@
                             <a href="/report/{{ student['id'] }}" class="btn btn-sm btn-primary">📄 Report</a>
                             {% if session.role == 'admin' %}
                             <a href="/delete_student/{{ student['id'] }}"
-                                onclick="return confirm('Delete {{ student[\'full_name\'] }}? This cannot be undone!')"
+                                onclick="return confirm('Delete this student? This cannot be undone!')"
                                 class="btn btn-danger">🗑️</a>
                             {% endif %}
                         </div>
